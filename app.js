@@ -2,9 +2,12 @@
 
 //--------------------GLOBAL VARIABLES/IMPORTS
 let allProducts = [];
+let productContainer = document.getElementById('products');
+let resultButton = document.getElementById('section + div');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
+let position = Math.floor(Math.random() * allProducts.length);
 
 let clicks = 0;
 let maxClicks = 25;
@@ -13,10 +16,11 @@ let maxClicks = 25;
 
 // Constructor Function for Product
 function Products (name, image) {
-    this.name = name;
-    this.image = 'assets/' + image;
-    this.timesShow = 0;
-    allProducts.push(this)
+  this.name = name;
+  this.image = 'assets/' + image;
+  this.timesShown = 0;
+  this.clicks = 0;
+  allProducts.push(this);
 }
 
 new Products('bag', 'bag.jpeg');
@@ -33,7 +37,7 @@ new Products('pen', 'pen.jpeg');
 new Products('pet-sweep', 'pet-sweep.jpeg');
 new Products('scissors', 'scissors.jpeg');
 new Products('shark', 'shark.jpeg');
-new Products('sweep', 'sweep.jpeg');
+new Products('sweep', 'sweep.png');
 new Products('tauntaun', 'tauntaun.jpeg');
 new Products('unicorn', 'unicorn.jpeg');
 new Products('water-can', 'water-can.jpeg');
@@ -44,18 +48,62 @@ console.log(allProducts);
 //--------------------CONSTRUCTOR METHODS
 
 // Prototype Function for Generating Random Images
-function generateRandomImage () {
-    let position = Math.floor(Math.random() * allProducts.length);
-    imageOne.src = allProducts[position].image;
-    imageOne.alt = allProducts[position].name;
-    imageTwo.src = allProducts[position].image;
-    imageTwo.src = allProducts[position].image;
-    imageThree.src = allProducts[position].image;
-    imageThree.src = allProducts[position].image;
+function generateRandomNumber () {
+  position = Math.floor(Math.random() * allProducts.length);
+  // insert while loop (take out the random number generator after)
+  imageOne.src = allProducts[position].image;
+  imageOne.alt = allProducts[position].name;
+  position = Math.floor(Math.random() * allProducts.length);
+  imageTwo.src = allProducts[position].image;
+  imageTwo.alt = allProducts[position].name;
+  position = Math.floor(Math.random() * allProducts.length);
+  imageThree.src = allProducts[position].image;
+  imageThree.alt = allProducts[position].name;
+  allProducts[position].views++;
+  allProducts[position].views++;
+  allProducts[position].views++;
+}
+function generateNewImages () {
+  // To Do 
+  // for (i = 0; i < 3; i++)
+  while (allProducts.length < 3) {
+    position = Math.floor(Math.random() * allProducts.length);
+    if (!productContainer.includes(allProducts[position])) {
+      productContainer.push(allProducts[position]);
+    }
+  }
+};
+
+function handleProductClicks(event) {
+  alert('Please click on an image to select a product');
+  clicks++;
+  let clickProduct = event.target.alt;
+  for (let i = 0; i < allProducts.length; i++)
+    if (clickProduct === allProducts[i].name) {
+      allProducts[i].clicks++;
+      break;
+    }
+  generateNewImages();
+}
+if (clicks === maxClicks) {
+  productContainer.removeEventListener('click', handleProductClicks);
+  resultButton.addEventListener('click', showResults);
+  resultButton.className = 'clicks-allowed';
+  productContainer.className ='no-voting';
+} else {
+  showResults();
 }
 
-   
-    // console.log(allProducts[position]);
+function showResults () {
+  let ul = document.getElementById('ul');
+  for ( let i = 0; i < productContainer.length; i++) {
+    let li = document.createElement('li')
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} view and was clicked ${allProducts[i].clicks} times.`;
+    ul.appendChild(li);
+  }
+}
 
-console.log(imageOne);
-generateRandomImage();
+// console.log(imageOne);
+generateRandomNumber();
+
+productContainer.addEventListener('click', handleProductClicks);

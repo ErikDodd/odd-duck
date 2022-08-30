@@ -3,6 +3,7 @@
 //--------------------GLOBAL VARIABLES/IMPORTS
 let allProducts = [];
 let productContainer = document.getElementById('products');
+let resultButton = document.getElementById('section + div');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
@@ -62,7 +63,16 @@ function generateRandomNumber () {
   allProducts[position].views++;
   allProducts[position].views++;
 }
-
+function generateNewImages () {
+  // To Do 
+  // for (i = 0; i < 3; i++)
+  while (allProducts.length < 3) {
+    position = Math.floor(Math.random() * allProducts.length);
+    if (!productContainer.includes(allProducts[position])) {
+      productContainer.push(allProducts[position]);
+    }
+  }
+};
 
 function handleProductClicks(event) {
   alert('Please click on an image to select a product');
@@ -73,13 +83,27 @@ function handleProductClicks(event) {
       allProducts[i].clicks++;
       break;
     }
+  generateNewImages();
 }
-
 if (clicks === maxClicks) {
   productContainer.removeEventListener('click', handleProductClicks);
+  resultButton.addEventListener('click', showResults);
+  resultButton.className = 'clicks-allowed';
+  productContainer.className ='no-voting';
+} else {
+  showResults();
 }
 
-console.log(imageOne);
+function showResults () {
+  let ul = document.getElementById('ul');
+  for ( let i = 0; i < productContainer.length; i++) {
+    let li = document.createElement('li')
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} view and was clicked ${allProducts[i].clicks} times.`;
+    ul.appendChild(li);
+  }
+}
+
+// console.log(imageOne);
 generateRandomNumber();
 
 productContainer.addEventListener('click', handleProductClicks);

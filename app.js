@@ -6,6 +6,7 @@ let productContainer = document.getElementById('products');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
+let position = Math.floor(Math.random() * allProducts.length);
 
 let clicks = 0;
 let maxClicks = 25;
@@ -18,7 +19,7 @@ function Products (name, image) {
   this.image = 'assets/' + image;
   this.timesShown = 0;
   this.clicks = 0;
-  allProducts.push(this)
+  allProducts.push(this);
 }
 
 new Products('bag', 'bag.jpeg');
@@ -47,8 +48,8 @@ console.log(allProducts);
 
 // Prototype Function for Generating Random Images
 function generateRandomNumber () {
-  let position = Math.floor(Math.random() * allProducts.length);
-// insert while loop (take out the random number generator after)
+  position = Math.floor(Math.random() * allProducts.length);
+  // insert while loop (take out the random number generator after)
   imageOne.src = allProducts[position].image;
   imageOne.alt = allProducts[position].name;
   position = Math.floor(Math.random() * allProducts.length);
@@ -64,8 +65,18 @@ function generateRandomNumber () {
 
 
 function handleProductClicks(event) {
-    alert('Please click on an image to select a product');
-    clicks++;
+  alert('Please click on an image to select a product');
+  clicks++;
+  let clickProduct = event.target.alt;
+  for (let i = 0; i < allProducts.length; i++)
+    if (clickProduct === allProducts[i].name) {
+      allProducts[i].clicks++;
+      break;
+    }
+}
+
+if (clicks === maxClicks) {
+  productContainer.removeEventListener('click', handleProductClicks);
 }
 
 console.log(imageOne);

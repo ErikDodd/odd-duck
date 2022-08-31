@@ -9,6 +9,7 @@ let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
 
+let totalClicks = 0;
 let maxClicks = 25;
 
 //--------------------CONSTRUCTORS
@@ -22,6 +23,9 @@ function Products (name, image) {
   allProducts.push(this);
 }
 
+//--------------------CONSTRUCTOR METHODS
+
+//  Creating All Products
 function addAllProducts () {
   for (let i = 0; i < productNames.length; i++) {
     let currentItem = productNames[i];
@@ -31,13 +35,11 @@ function addAllProducts () {
   }
 }
 
-
-//--------------------CONSTRUCTOR METHODS
-
+//  Creating Random Number
 function getRandomNumber () {
   return Math.floor(Math.random() * allProducts.length);
 }
-
+//  Displaying Products
 function renderProducts () {
   let product1 = getRandomNumber();
   let product2 = getRandomNumber();
@@ -60,22 +62,12 @@ function renderProducts () {
   allProducts[product2].views++;
   allProducts[product3].views++;
 }
-
-// To Do
-// function generateNewImages () {
-//   let newImagesArray = [];
-//   for (let i = 0; i < 3; i++) {
-   
-//           }
-//       return newImagesArray;
-// // }
-// // generateNewImages();
-
+// Event Handler for Clicking on Products
 function handleProductClicks(event) {
   if (event.target === productContainer) {
     alert('Please click on an image to select a product');
   }
-  this.clicks++;
+  totalClicks++;
   let clickProduct = event.target.alt;
   for (let i = 0; i < allProducts.length; i++) {
     if (clickProduct === allProducts[i].name) {
@@ -83,7 +75,7 @@ function handleProductClicks(event) {
       break;
     }
   }
-  if (this.clicks === maxClicks) {
+  if (totalClicks === maxClicks) {
     productContainer.removeEventListener('click', handleProductClicks);
     resultButton.addEventListener('click', showResults);
     resultButton.className = 'clicks-allowed';
@@ -93,12 +85,13 @@ function handleProductClicks(event) {
   }
 }
 
-
+// Display Results of Voting
 function showResults () {
   let ul = document.querySelector('ul');
   for ( let i = 0; i < allProducts.length; i++) {
     let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} view and was clicked ${allProducts[i].clicks} times.`;
+    // li.textContent = `${allProducts[i].name} had ${allProducts[i].views} view and was clicked ${allProducts[i].clicks} times.`;
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes and and was viewed ${allProducts[i].views} times.`;
     ul.appendChild(li);
   }
 }

@@ -1,12 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@600&display=swap');
+
 header {
     display: flex;
     border: thick solid forestgreen;
+    font-family: 'Arimo', sans-serif;
+    font-size: 40px;
     
+}
+
+#results {
+    display: flex;
+    flex-direction: column;
+}
+
+#submit {
+    width: 40px;
+    height: 20px;
 }
 
 #products {
     display: flex;
     justify-content: center;
+    border: thick solid forestgreen;
 }
 
 #fakeLogo {
@@ -16,14 +31,44 @@ header {
 }
 
 #productOne, #productTwo, #productThree {
-    max-width: 20%;
+    max-width: 80%;
+    margin-right: 40px;
+    width: 600px;
+    height: 600px;
 }
+
 
 #productsAndResults {
     display: flex;
 }
 
+#productVotesChart, #productViewsChart {
+    max-width: 50%;
+    justify-content: center;
+}
+
 p {
     max-width: 60%;
+    justify-content: center;
+}
+
+main {
+    border: thick solid forestgreen;
+    margin-top: 20px;
+}
+
+ul {
+    border: thick solid forestgreen;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    height: 100%;
+}
+
+
+#productVotesChart {
+    display: flex;
     justify-content: center;
 }

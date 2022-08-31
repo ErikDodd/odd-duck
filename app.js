@@ -40,11 +40,25 @@ function addAllProducts () {
 function getRandomNumber () {
   return Math.floor(Math.random() * allProducts.length);
 }
+// Displaying Unique Images
+
+function uniqueImages () {
+  let uniqueImageArray = [];
+  while (uniqueImageArray.length < 3) {
+    let item = getRandomNumber();
+    if (!uniqueImageArray.includes(item)) {
+      uniqueImageArray.push(item);
+    }
+  }
+  return uniqueImageArray;
+}
+
 //  Displaying Products
 function renderProducts () {
-  let product1 = getRandomNumber();
-  let product2 = getRandomNumber();
-  let product3 = getRandomNumber();
+  let newProduct = uniqueImages();
+  let product1 = newProduct[0];
+  let product2 = newProduct[1];
+  let product3 = newProduct[2];
 
   while (product1 === product2) {
     product2 = getRandomNumber();
@@ -56,13 +70,14 @@ function renderProducts () {
   imageOne.src = allProducts[product1].image;
   imageOne.alt = allProducts[product1].name;
   imageTwo.src = allProducts[product2].image;
-  imageTwo.alt = allProducts[product1].name;
+  imageTwo.alt = allProducts[product2].name;
   imageThree.src = allProducts[product3].image;
-  imageThree.alt = allProducts[product1].name;
+  imageThree.alt = allProducts[product3].name;
   allProducts[product1].views++;
   allProducts[product2].views++;
   allProducts[product3].views++;
 }
+
 // Event Handler for Clicking on Products
 function handleProductClicks(event) {
   if (event.target === productContainer) {
@@ -163,10 +178,7 @@ function renderChart () {
   });
 }
 
-
-
-
-
 addAllProducts();
 renderProducts();
+// uniqueImages();
 productContainer.addEventListener('click', handleProductClicks);

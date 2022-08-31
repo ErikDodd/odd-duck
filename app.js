@@ -2,14 +2,14 @@
 
 //--------------------GLOBAL VARIABLES/IMPORTS
 let allProducts = [];
+const productNames = ['boots', 'bathroom', 'breakfast', 'bubblegum', 'chair', 'dog-duck', 'tauntaun', 'scissors', 'water-can', 'wine-glass', 'bag', 'banana', 'cthulhu', 'dragon', 'pen', 'pet-sweep', 'shark', 'sweep', 'unicorn', 'usb'];
 let productContainer = document.getElementById('products');
-let resultButton = document.getElementById('section + div');
+let resultButton = document.getElementById('results');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
-let position = Math.floor(Math.random() * allProducts.length);
 
-let clicks = 0;
+let totalClicks = 0;
 let maxClicks = 25;
 
 //--------------------CONSTRUCTORS
@@ -17,93 +17,86 @@ let maxClicks = 25;
 // Constructor Function for Product
 function Products (name, image) {
   this.name = name;
-  this.image = 'assets/' + image;
-  this.timesShown = 0;
+  this.image = image;
+  this.views = 0;
   this.clicks = 0;
   allProducts.push(this);
 }
 
-new Products('bag', 'bag.jpeg');
-new Products('banana', 'banana.jpeg');
-new Products('bathroom', 'bathroom.jpeg');
-new Products('boots', 'boots.jpeg');
-new Products('breakfast', 'breakfast.jpeg');
-new Products('bubblegum', 'bubblegum.jpeg');
-new Products('chair', 'chair.jpeg');
-new Products('cthulhu', 'cthulhu.jpeg');
-new Products('dog-duck', 'dog-duck.jpeg');
-new Products('dragon', 'dragon.jpeg');
-new Products('pen', 'pen.jpeg');
-new Products('pet-sweep', 'pet-sweep.jpeg');
-new Products('scissors', 'scissors.jpeg');
-new Products('shark', 'shark.jpeg');
-new Products('sweep', 'sweep.png');
-new Products('tauntaun', 'tauntaun.jpeg');
-new Products('unicorn', 'unicorn.jpeg');
-new Products('water-can', 'water-can.jpeg');
-new Products('wine-glass', 'wine-glass.jpeg');
-
-console.log(allProducts);
-
 //--------------------CONSTRUCTOR METHODS
 
-// Prototype Function for Generating Random Images
-function generateRandomNumber () {
-  position = Math.floor(Math.random() * allProducts.length);
-  // insert while loop (take out the random number generator after)
-  imageOne.src = allProducts[position].image;
-  imageOne.alt = allProducts[position].name;
-  position = Math.floor(Math.random() * allProducts.length);
-  imageTwo.src = allProducts[position].image;
-  imageTwo.alt = allProducts[position].name;
-  position = Math.floor(Math.random() * allProducts.length);
-  imageThree.src = allProducts[position].image;
-  imageThree.alt = allProducts[position].name;
-  allProducts[position].views++;
-  allProducts[position].views++;
-  allProducts[position].views++;
-}
-function generateNewImages () {
-  // To Do 
-  // for (i = 0; i < 3; i++)
-  while (allProducts.length < 3) {
-    position = Math.floor(Math.random() * allProducts.length);
-    if (!productContainer.includes(allProducts[position])) {
-      productContainer.push(allProducts[position]);
-    }
+//  Creating All Products
+function addAllProducts () {
+  for (let i = 0; i < productNames.length; i++) {
+    let currentItem = productNames[i];
+    let productPath = `assets/${currentItem}.jpeg`;
+    new Products(currentItem, productPath);
+    // console.log(productPath);
   }
-};
+}
 
+//  Creating Random Number
+function getRandomNumber () {
+  return Math.floor(Math.random() * allProducts.length);
+}
+//  Displaying Products
+function renderProducts () {
+  let product1 = getRandomNumber();
+  let product2 = getRandomNumber();
+  let product3 = getRandomNumber();
+
+  while (product1 === product2) {
+    product2 = getRandomNumber();
+  } while (product2 === product3) {
+    product3 = getRandomNumber();
+  } while (product1 === product3) {
+    product1 = getRandomNumber();
+  }
+  imageOne.src = allProducts[product1].image;
+  imageOne.alt = allProducts[product1].name;
+  imageTwo.src = allProducts[product2].image;
+  imageTwo.alt = allProducts[product1].name;
+  imageThree.src = allProducts[product3].image;
+  imageThree.alt = allProducts[product1].name;
+  allProducts[product1].views++;
+  allProducts[product2].views++;
+  allProducts[product3].views++;
+}
+// Event Handler for Clicking on Products
 function handleProductClicks(event) {
-  alert('Please click on an image to select a product');
-  clicks++;
+  if (event.target === productContainer) {
+    alert('Please click on an image to select a product');
+  }
+  totalClicks++;
   let clickProduct = event.target.alt;
-  for (let i = 0; i < allProducts.length; i++)
+  for (let i = 0; i < allProducts.length; i++) {
     if (clickProduct === allProducts[i].name) {
       allProducts[i].clicks++;
       break;
     }
-  generateNewImages();
-}
-if (clicks === maxClicks) {
-  productContainer.removeEventListener('click', handleProductClicks);
-  resultButton.addEventListener('click', showResults);
-  resultButton.className = 'clicks-allowed';
-  productContainer.className ='no-voting';
-} else {
-  showResults();
+  }
+  if (totalClicks === maxClicks) {
+    productContainer.removeEventListener('click', handleProductClicks);
+    resultButton.addEventListener('click', showResults);
+    resultButton.className = 'clicks-allowed';
+    productContainer.className ='no-voting';
+  } else {
+    renderProducts();
+  }
 }
 
+// Display Results of Voting
 function showResults () {
-  let ul = document.getElementById('ul');
-  for ( let i = 0; i < productContainer.length; i++) {
-    let li = document.createElement('li')
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} view and was clicked ${allProducts[i].clicks} times.`;
+  let ul = document.querySelector('ul');
+  for ( let i = 0; i < allProducts.length; i++) {
+    let li = document.createElement('li');
+    // li.textContent = `${allProducts[i].name} had ${allProducts[i].views} view and was clicked ${allProducts[i].clicks} times.`;
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes and and was viewed ${allProducts[i].views} times.`;
     ul.appendChild(li);
   }
 }
 
-// console.log(imageOne);
-generateRandomNumber();
 
+addAllProducts();
+renderProducts();
 productContainer.addEventListener('click', handleProductClicks);

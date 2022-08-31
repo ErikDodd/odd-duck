@@ -16,7 +16,7 @@ header {
 }
 
 #productOne, #productTwo, #productThree {
-    max-width: 20%;
+    max-width: 60%;
 }
 
 #productsAndResults {

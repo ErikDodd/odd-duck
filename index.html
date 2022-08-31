@@ -18,12 +18,73 @@
             <div id="results"> 
                 <button type="submit">View Results</button>
             </div>
-                <ul></ul>
+            <ul></ul>
             <section id="products">
                 <img id="productOne">
                 <img id="productTwo">
                 <img id="productThree">
             </section>
+            <div>
+            <!-- bar chart canvas element for Votes -->
+            <canvas id="productVotes" width="400" height="400"></canvas>
+            </div>
+            <div>
+            <!-- bar chart canvas element for views -->
+            <canvas id="productViews" width="400" height="400"></canvas>
+            </div>
+            <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'],
+                    data: {
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(34, 139, 34)',
+                                'rgba(0, 143, 204)',
+                            ],
+                            borderColor: [
+                               'rgba(34, 139, 34)',
+                                'rgba(0, 143, 204)',
+                            ],
+                            borderWidth: 3
+                        }]
+                        
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                                datasets: [{
+                                    label: '# of Views',
+                                    data: [12, 19, 3, 5, 2, 3],
+                                    backgroundColor: [
+                                        'rgba(34, 139, 34)',
+                                        'rgba(0, 143, 204)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(34, 139, 34)',
+                                        'rgba(0, 143, 204)',
+                                    ],
+                                    borderWidth: 3
+                                }]
+    
+                                },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                            });
+            </script>
         </section>
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
@@ -31,8 +92,8 @@
             occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </main>
     <footer>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+        <script src="app.js"></script>
     </footer>
-    <script src="app.js"></script>
 </body>
 </html>

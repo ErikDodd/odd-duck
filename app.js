@@ -2,12 +2,13 @@
 
 //--------------------GLOBAL VARIABLES/IMPORTS
 let allProducts = [];
-const productNames = ['boots', 'bathroom', 'breakfast', 'bubblegum', 'chair', 'dog-duck', 'tauntaun', 'scissors', 'water-can', 'wine-glass', 'bag', 'banana', 'cthulhu', 'dragon', 'pen', 'pet-sweep', 'shark', 'sweep', 'unicorn', 'usb'];
+const productNames = ['boots', 'bathroom', 'breakfast', 'bubblegum', 'chair', 'dog-duck', 'tauntaun', 'scissors', 'water-can', 'wine-glass', 'bag', 'banana', 'cthulhu', 'dragon', 'pen', 'pet-sweep', 'shark', 'sweep', 'unicorn'];
 let productContainer = document.getElementById('products');
 let resultButton = document.getElementById('results');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
+
 
 let totalClicks = 0;
 let maxClicks = 25;
@@ -93,7 +94,78 @@ function showResults () {
     li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes and and was viewed ${allProducts[i].views} times.`;
     ul.appendChild(li);
   }
+  renderChart();
 }
+
+let myChart, myChartTwo;
+
+function renderChart () {
+  let clicks = [];
+  let views = [];
+  for (let i = 0; i < allProducts.length; i++) {
+    clicks.push(allProducts[i].clicks);
+    views.push(allProducts[i].views);
+  }
+
+  const ctx = document.getElementById('productVotes').getContext('2d');
+  myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'],
+      datasets: [{
+        label: '# of Votes',
+        data: clicks,
+        backgroundColor: [
+          'rgba(34, 139, 34)',
+          'rgba(0, 143, 204)',
+        ],
+        borderColor: [
+          'rgba(34, 139, 34)',
+          'rgba(0, 143, 204)',
+        ],
+        borderWidth: 3
+      }],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  const ctxTwo = document.getElementById('productViews').getContext('2d');
+  myChartTwo = new Chart(ctxTwo, {
+    type: 'bar',
+    data: {
+      labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'],
+      datasets: [{
+        label: '# of Views',
+        data: views,
+        backgroundColor: [
+          'rgba(34, 139, 34)',
+          'rgba(0, 143, 204)',
+        ],
+        borderColor: [
+          'rgba(34, 139, 34)',
+          'rgba(0, 143, 204)',
+        ],
+        borderWidth: 3
+      }],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+
+
+
 
 addAllProducts();
 renderProducts();

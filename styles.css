@@ -15,9 +15,19 @@ header {
     margin-right: 30px;
 }
 
-#productOne, #productTwo, #productThree {
-    max-width: 60%;
+#productOne {
+    max-width: 20%;
+    border: thin blue;
 }
+
+#productTwo {
+    max-width: 20%;
+}
+
+#productThree {
+    max-width: 20%;
+}
+
 
 #productsAndResults {
     display: flex;
@@ -26,4 +36,8 @@ header {
 p {
     max-width: 60%;
     justify-content: center;
+}
+
+#productVotesChart {
+    display: block;
 }

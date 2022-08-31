@@ -14,6 +14,7 @@
         <h1>Odd Duck Product Co.</h1>
     </header>
     <main>
+        <p>Help Us Select Our Next Product to Release. Vote by making 25 selections and then click 'View Results' to see the outcome!</p>
         <section id="productsAndResults">
             <div id="results"> 
                 <button type="submit">View Results</button>
@@ -24,68 +25,15 @@
                 <img id="productTwo">
                 <img id="productThree">
             </section>
-            <div>
-            <!-- bar chart canvas element for Votes -->
-            <canvas id="productVotes" width="400" height="400"></canvas>
-            </div>
-            <div>
-            <!-- bar chart canvas element for views -->
-            <canvas id="productViews" width="400" height="400"></canvas>
-            </div>
-            <script>
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                    type: 'bar',
-                    labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'],
-                    data: {
-                        datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(34, 139, 34)',
-                                'rgba(0, 143, 204)',
-                            ],
-                            borderColor: [
-                               'rgba(34, 139, 34)',
-                                'rgba(0, 143, 204)',
-                            ],
-                            borderWidth: 3
-                        }]
-                        
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-                                datasets: [{
-                                    label: '# of Views',
-                                    data: [12, 19, 3, 5, 2, 3],
-                                    backgroundColor: [
-                                        'rgba(34, 139, 34)',
-                                        'rgba(0, 143, 204)',
-                                    ],
-                                    borderColor: [
-                                        'rgba(34, 139, 34)',
-                                        'rgba(0, 143, 204)',
-                                    ],
-                                    borderWidth: 3
-                                }]
-    
-                                },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                            });
-            </script>
         </section>
+            <div id="productVotesChart">
+            <!-- bar chart canvas element for Votes -->
+            <canvas id="productVotes" width="200" height="200"></canvas>
+            </div>
+            <div id="productViewsChart">
+            <!-- bar chart canvas element for views -->
+            <canvas id="productViews" width="200" height="200"></canvas>
+            </div>
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
             aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint

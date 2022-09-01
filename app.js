@@ -8,7 +8,8 @@ let resultButton = document.getElementById('results');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
-
+let clicks = [];
+let views = [];
 
 let totalClicks = 0;
 let maxClicks = 25;
@@ -101,6 +102,12 @@ function handleProductClicks(event) {
   }
 }
 
+// Add Code for storing the clicks & Views --> Move lines 107 - 112 up into Clicking on Products Handler?
+
+// let toStoreClicks = allProducts;
+// console.log(toStoreClicks);
+// localStorage.setItem('toStoreClicks', JSON.stringify(toStoreClicks));
+
 // Display Results of Voting
 function showResults () {
   let ul = document.querySelector('ul');
@@ -112,11 +119,19 @@ function showResults () {
   renderChart();
 }
 
+// Add Code for loading the clicks & views
+
+// let retrieveClicks = localStorage.getItem('toStoreClicks');
+// if (retrieveClicks) {
+//   toStoreClicks = JSON.parse(retrieveClicks);
+// }
+
+
 let myChart, myChartTwo;
 
 function renderChart () {
-  let clicks = [];
-  let views = [];
+  // let clicks = [];
+  // let views = [];
   for (let i = 0; i < allProducts.length; i++) {
     clicks.push(allProducts[i].clicks);
     views.push(allProducts[i].views);

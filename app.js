@@ -113,7 +113,7 @@ function showResults () {
   let ul = document.querySelector('ul');
   for ( let i = 0; i < allProducts.length; i++) {
     let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes and and was viewed ${allProducts[i].views} times.`;
+    li.textContent = `${allProducts[i].name}: ${allProducts[i].clicks} votes, ${allProducts[i].views} views.`;
     ul.appendChild(li);
   }
   renderChart();

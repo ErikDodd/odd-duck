@@ -14,6 +14,15 @@ let views = [];
 let totalClicks = 0;
 let maxClicks = 25;
 
+
+// Add Code for storing the clicks & Views --> Move lines 107 - 112 up into Clicking on Products Handler?
+
+// let toStoreClicks = allProducts;
+// localStorage.getItem('toStoreClicks', JSON.stringify(toStoreClicks));
+
+// Display Results of Voting
+
+
 //--------------------CONSTRUCTORS
 
 // Constructor Function for Product
@@ -29,11 +38,15 @@ function Products (name, image) {
 
 //  Creating All Products
 function addAllProducts () {
-  for (let i = 0; i < productNames.length; i++) {
-    let currentItem = productNames[i];
-    let productPath = `assets/${currentItem}.jpeg`;
-    new Products(currentItem, productPath);
-    // console.log(productPath);
+  let products = JSON.parse(localStorage.getItem('products'));
+  if (products !== null) {
+    allProducts = products;
+  } else {
+    for (let i = 0; i < productNames.length; i++) {
+      let currentItem = productNames[i];
+      let productPath = `assets/${currentItem}.jpeg`;
+      new Products(currentItem, productPath);
+    }
   }
 }
 
@@ -89,9 +102,11 @@ function handleProductClicks(event) {
   for (let i = 0; i < allProducts.length; i++) {
     if (clickProduct === allProducts[i].name) {
       allProducts[i].clicks++;
+      console.log('clicked');
       break;
     }
   }
+  localStorage.setItem('products', JSON.stringify(allProducts));
   if (totalClicks === maxClicks) {
     productContainer.removeEventListener('click', handleProductClicks);
     resultButton.addEventListener('click', showResults);
@@ -102,13 +117,6 @@ function handleProductClicks(event) {
   }
 }
 
-// Add Code for storing the clicks & Views --> Move lines 107 - 112 up into Clicking on Products Handler?
-
-// let toStoreClicks = allProducts;
-// console.log(toStoreClicks);
-// localStorage.setItem('toStoreClicks', JSON.stringify(toStoreClicks));
-
-// Display Results of Voting
 function showResults () {
   let ul = document.querySelector('ul');
   for ( let i = 0; i < allProducts.length; i++) {
@@ -127,6 +135,7 @@ function showResults () {
 // }
 
 
+// eslint-disable-next-line no-unused-vars
 let myChart, myChartTwo;
 
 function renderChart () {
@@ -138,6 +147,7 @@ function renderChart () {
   }
 
   const ctx = document.getElementById('productVotes').getContext('2d');
+  // eslint-disable-next-line no-undef
   myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -165,6 +175,7 @@ function renderChart () {
     }
   });
   const ctxTwo = document.getElementById('productViews').getContext('2d');
+  // eslint-disable-next-line no-undef
   myChartTwo = new Chart(ctxTwo, {
     type: 'bar',
     data: {

@@ -8,10 +8,20 @@ let resultButton = document.getElementById('results');
 let imageOne = document.getElementById('productOne');
 let imageTwo = document.getElementById('productTwo');
 let imageThree = document.getElementById('productThree');
-
+let clicks = [];
+let views = [];
 
 let totalClicks = 0;
 let maxClicks = 25;
+
+
+// Add Code for storing the clicks & Views --> Move lines 107 - 112 up into Clicking on Products Handler?
+
+// let toStoreClicks = allProducts;
+// localStorage.getItem('toStoreClicks', JSON.stringify(toStoreClicks));
+
+// Display Results of Voting
+
 
 //--------------------CONSTRUCTORS
 
@@ -28,11 +38,15 @@ function Products (name, image) {
 
 //  Creating All Products
 function addAllProducts () {
-  for (let i = 0; i < productNames.length; i++) {
-    let currentItem = productNames[i];
-    let productPath = `assets/${currentItem}.jpeg`;
-    new Products(currentItem, productPath);
-    // console.log(productPath);
+  let products = JSON.parse(localStorage.getItem('products'));
+  if (products !== null) {
+    allProducts = products;
+  } else {
+    for (let i = 0; i < productNames.length; i++) {
+      let currentItem = productNames[i];
+      let productPath = `assets/${currentItem}.jpeg`;
+      new Products(currentItem, productPath);
+    }
   }
 }
 
@@ -88,9 +102,11 @@ function handleProductClicks(event) {
   for (let i = 0; i < allProducts.length; i++) {
     if (clickProduct === allProducts[i].name) {
       allProducts[i].clicks++;
+      console.log('clicked');
       break;
     }
   }
+  localStorage.setItem('products', JSON.stringify(allProducts));
   if (totalClicks === maxClicks) {
     productContainer.removeEventListener('click', handleProductClicks);
     resultButton.addEventListener('click', showResults);
@@ -101,28 +117,37 @@ function handleProductClicks(event) {
   }
 }
 
-// Display Results of Voting
 function showResults () {
   let ul = document.querySelector('ul');
   for ( let i = 0; i < allProducts.length; i++) {
     let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].clicks} votes and and was viewed ${allProducts[i].views} times.`;
+    li.textContent = `${allProducts[i].name}: ${allProducts[i].clicks} votes, ${allProducts[i].views} views.`;
     ul.appendChild(li);
   }
   renderChart();
 }
 
+// Add Code for loading the clicks & views
+
+// let retrieveClicks = localStorage.getItem('toStoreClicks');
+// if (retrieveClicks) {
+//   toStoreClicks = JSON.parse(retrieveClicks);
+// }
+
+
+// eslint-disable-next-line no-unused-vars
 let myChart, myChartTwo;
 
 function renderChart () {
-  let clicks = [];
-  let views = [];
+  // let clicks = [];
+  // let views = [];
   for (let i = 0; i < allProducts.length; i++) {
     clicks.push(allProducts[i].clicks);
     views.push(allProducts[i].views);
   }
 
   const ctx = document.getElementById('productVotes').getContext('2d');
+  // eslint-disable-next-line no-undef
   myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -150,6 +175,7 @@ function renderChart () {
     }
   });
   const ctxTwo = document.getElementById('productViews').getContext('2d');
+  // eslint-disable-next-line no-undef
   myChartTwo = new Chart(ctxTwo, {
     type: 'bar',
     data: {

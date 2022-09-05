@@ -10,14 +10,15 @@
 </head>
 <body>
     <header>
-        <img src="/assets/300x200.png" id="fakeLogo">
+        <img src="/assets/300x100.png" id="fakeLogo">
         <h1>Odd Duck Product Co.</h1>
     </header>
     <main>
-        <p>Help Us Select Our Next Product to Release. Vote by making 25 selections and then click 'View Results' to see the outcome!</p>
+        <!-- <p>Help Us Select Our Next Product to Release. Vote by making 25 selections and then click 'View Results' to see the outcome!</p> -->
 
         <section id="productsAndResults">
             <div id="results"> 
+                <h2>Results:</h2>
                 <ul></ul>
                 <button type="submit">View Results</button>
             </div>
@@ -33,6 +34,13 @@
                 </div>
             </section>
         </section>
+        <section>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </section>
             <div id="productVotesChart">
             <!-- bar chart canvas element for Votes -->
             <canvas id="productVotes" width="200" height="200"></canvas>
@@ -41,12 +49,9 @@
             <!-- bar chart canvas element for views -->
             <canvas id="productViews" width="200" height="200"></canvas>
             </div>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-            aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </main>
     <footer>
+        <h3> © Odd Duck Product Co. Made by Erik Dodd 2022. </h3>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
         <script src="app.js"></script>
     </footer>
